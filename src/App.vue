@@ -1,28 +1,86 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <CustomForm
+      :form-settings="formSettings"
+      @hideForm="isSuccess = true"
+      v-if="!isSuccess"
+    />
+    <SuccessPopup v-else></SuccessPopup>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import CustomForm from "@/components/CustomForm";
+import SuccessPopup from "@/components/SuccessPopup";
 
 export default {
   name: "App",
-  components: {
-    HelloWorld,
+  components: { CustomForm, SuccessPopup },
+  data() {
+    return {
+      isSuccess: false,
+    };
+  },
+  computed: {
+    formSettings() {
+      return {
+        type: "registration",
+        fields: [
+          {
+            type: "string",
+            placeholder: "Имя",
+            name: "name",
+          },
+          {
+            type: "string",
+            placeholder: "Email",
+            name: "email",
+          },
+          {
+            type: "password",
+            placeholder: "Пароль",
+            name: "password",
+          },
+          {
+            type: "password",
+            placeholder: "Повторите пароль",
+            name: "repeatPassword",
+          },
+          {
+            type: "array",
+            placeholder: "Должность",
+            name: "position",
+            options: [
+              { value: 1, name: "Директор" },
+              { value: 2, name: "Разработчик" },
+              { value: 3, name: "Глава отдела разработки" },
+            ],
+          },
+        ],
+      };
+    },
   },
 };
 </script>
 
-<style lang="scss">
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Montserrat, sans-serif;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.field-error {
+  border: 1px solid red !important;
+}
+.error {
+  color: red;
+  font-size: 10px;
 }
 </style>
