@@ -93,12 +93,20 @@ export default {
           body: {
             public: this.formValues.isPrivacy,
             username: this.formValues.name,
-            role: this.formValues.position,
+            role: this.formValues.position.value,
             email: this.formValues.email,
             password: this.formValues.password,
             password_repeat: this.formValues.repeatPassword,
           },
         }).finally(() => {
+          console.log({
+            public: this.formValues.isPrivacy,
+            username: this.formValues.name,
+            role: this.formValues.position.value,
+            email: this.formValues.email,
+            password: this.formValues.password,
+            password_repeat: this.formValues.repeatPassword,
+          });
           this.$emit("hideForm");
         });
       }
