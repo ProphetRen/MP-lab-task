@@ -85,7 +85,7 @@ export default {
   methods: {
     async submit() {
       const valid = await this.v$.$validate();
-      if (!valid || !this.isAgreement) {
+      if (!valid || !this.formValues.isAgreement) {
         return;
       } else {
         await fetch("someUrl", {
